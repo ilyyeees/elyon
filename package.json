@@ -1,0 +1,19 @@
+{
+  "name": "elyon",
+  "version": "1.0.0",
+  "description": "A tactical command station for email deployment.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron . --no-sandbox"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "gsap": "^3.12.5",
+    "three": "^0.160.0"
+  },
+  "devDependencies": {
+    "electron": "^28.1.0"
+  }
+}
