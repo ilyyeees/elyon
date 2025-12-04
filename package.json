@@ -4,16 +4,50 @@
   "description": "A tactical command station for email deployment.",
   "main": "main.js",
   "scripts": {
-    "start": "electron . --no-sandbox"
+    "start": "electron . --no-sandbox",
+    "dist": "electron-builder",
+    "dist:linux": "electron-builder --linux",
+    "dist:win": "electron-builder --win",
+    "dist:mac": "electron-builder --mac"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "ilyyeees",
+  "license": "MIT",
   "dependencies": {
     "gsap": "^3.12.5",
     "three": "^0.160.0"
   },
   "devDependencies": {
-    "electron": "^28.1.0"
+    "electron": "^28.1.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.elyon.app",
+    "productName": "Elyon",
+    "files": [
+      "**/*",
+      "!python_backend/venv/**/*",
+      "!python_backend/build/**/*",
+      "!python_backend/__pycache__/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "python_backend/dist/backend",
+        "to": "backend/backend"
+      }
+    ],
+    "linux": {
+      "target": ["AppImage", "deb"],
+      "category": "Utility",
+      "icon": "src/assets/logo icon.png"
+    },
+    "mac": {
+      "target": ["dmg"],
+      "icon": "src/assets/logo icon.png"
+    },
+    "win": {
+      "target": ["nsis"],
+      "icon": "src/assets/logo icon.png"
+    }
   }
 }

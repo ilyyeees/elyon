@@ -29,12 +29,21 @@ function createWindow() {
 }
 
 function startPython() {
-    const pythonExecutable = path.join(__dirname, 'python_backend', 'venv', 'bin', 'python');
-    const scriptPath = path.join(__dirname, 'python_backend', 'app.py');
+    let pythonExecutable;
 
-    console.log(`Starting Python process: ${pythonExecutable} ${scriptPath}`);
+    if (app.isPackaged) {
+        // Production: use compiled binary from resources
+        pythonExecutable = path.join(process.resourcesPath, 'backend', 'backend');
+    } else {
+        // Development: use venv python
+        pythonExecutable = path.join(__dirname, 'python_backend', 'venv', 'bin', 'python');
+    }
 
-    pythonProcess = spawn(pythonExecutable, [scriptPath]);
+    const args = app.isPackaged ? [] : [path.join(__dirname, 'python_backend', 'app.py')];
+
+    console.log(`Starting Python process: ${pythonExecutable} ${args.join(' ')}`);
+
+    pythonProcess = spawn(pythonExecutable, args);
 
     pythonProcess.stdout.on('data', (data) => {
         console.log(`Python stdout: ${data}`);

@@ -1,5 +1,9 @@
 node_modules/
 python_backend/venv/
 python_backend/__pycache__/
+python_backend/build/
+python_backend/dist/
 *.pyc
+*.spec
 .DS_Store
+dist/
