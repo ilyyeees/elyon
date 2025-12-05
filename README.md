@@ -9,22 +9,27 @@ a desktop application for sending personalized bulk emails.
 - preview the rendered email before sending
 - send personalized emails to all recipients
 
-## download
+## download & install
 
-### linux
-1. download `Elyon-1.0.0.AppImage` from releases
-2. make it executable: `chmod +x Elyon-1.0.0.AppImage`
-3. run it: `./Elyon-1.0.0.AppImage --no-sandbox`
-
-to install to your applications menu:
-```bash
-./install.sh
-```
+go to the [releases page](https://github.com/ilyyeees/elyon/releases) to download the latest version.
 
 ### windows
-1. download `Elyon-Setup-1.0.0.exe` from releases
+1. download `Elyon.Setup.1.0.0.exe`
 2. run the installer
-3. launch from start menu
+3. launch elyon from your start menu
+
+### linux
+**option 1: portable (easiest)**
+1. download `Elyon-1.0.0.AppImage`
+2. right-click -> properties -> permissions -> allow executing file as program
+3. double-click to run
+
+**option 2: install to menu**
+if you want elyon in your application menu:
+1. download `Elyon-1.0.0.AppImage`
+2. download `linux-setup.sh` from this repo (or create it)
+3. place them in the same folder
+4. run: `chmod +x linux-setup.sh && ./linux-setup.sh`
 
 ## building from source
 
@@ -43,27 +48,6 @@ pip install -r requirements.txt
 cd ..
 npm start
 ```
-
-to build installers:
-```bash
-# compile python backend first
-source python_backend/venv/bin/activate
-cd python_backend && pyinstaller --onefile --name backend app.py && cd ..
-
-# build for your platform
-npm run dist:linux
-npm run dist:win
-npm run dist:mac
-```
-
-## usage
-
-1. authenticate with your smtp credentials (gmail uses app passwords)
-2. upload a csv file containing recipient data
-3. select which column contains email addresses
-4. write your email subject and body using `{{ column_name }}` for personalization
-5. preview to check the rendered output
-6. send
 
 ## license
 
