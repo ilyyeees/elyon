@@ -1,13 +1,15 @@
 # elyon
 
-a desktop application for sending personalized bulk emails.
+a tactical command station for personalized bulk email deployment.
 
-## what it does
+## capabilities
 
-- upload a csv file with recipient data
-- write an email template using `{{ variable }}` placeholders
-- preview the rendered email before sending
-- send personalized emails to all recipients
+- **secure authentication**: connects directly to smtp servers (gmail, outlook, etc.) using standard protocols and app passwords.
+- **data ingestion**: parses csv datasets to generate dynamic recipient lists and variable contexts.
+- **dynamic templating**: utilizes a jinja2-based engine to inject recipient-specific data (e.g., `{{ name }}`, `{{ company }}`) into email subjects and bodies.
+- **html support**: accepts raw html templates for rich email layouts and styling.
+- **transmission preview**: renders accurate previews of outgoing messages, verifying variable substitution and layout before transmission.
+- **visual monitoring**: features a real-time 3d visualization interface to track deployment progress and status.
 
 ## download & install
 
@@ -19,17 +21,20 @@ go to the [releases page](https://github.com/ilyyeees/elyon/releases) to downloa
 3. launch elyon from your start menu
 
 ### linux
-**option 1: portable (easiest)**
+**option 1: portable (terminal)**
+due to electron sandbox restrictions on some systems, the appimage must be run with a flag:
 1. download `Elyon-1.0.0.AppImage`
-2. right-click -> properties -> permissions -> allow executing file as program
-3. double-click to run
+2. open terminal in the download folder
+3. make executable: `chmod +x Elyon-1.0.0.AppImage`
+4. run: `./Elyon-1.0.0.AppImage --no-sandbox`
 
-**option 2: install to menu**
-if you want elyon in your application menu:
+**option 2: install to menu (recommended)**
+this script installs the app and handles the flags for you:
 1. download `Elyon-1.0.0.AppImage`
-2. download `linux-setup.sh` from this repo (or create it)
+2. download `linux-setup.sh` from this repo
 3. place them in the same folder
 4. run: `chmod +x linux-setup.sh && ./linux-setup.sh`
+5. launch "elyon" from your applications menu
 
 ## building from source
 
