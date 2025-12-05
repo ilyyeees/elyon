@@ -2,6 +2,11 @@ const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const { spawn } = require('child_process');
 
+// disable sandbox for packaged builds
+if (app.isPackaged) {
+    app.commandLine.appendSwitch('no-sandbox');
+}
+
 let pythonProcess;
 
 function createWindow() {

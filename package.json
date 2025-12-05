@@ -37,10 +37,16 @@
       }
     ],
     "linux": {
-      "target": ["AppImage", "deb"],
+      "target": ["AppImage"],
       "category": "Utility",
       "icon": "src/assets/logo icon.png"
     },
+    "appImage": {
+      "artifactName": "${productName}-${version}.AppImage"
+    },
+    "removePackageScripts": true,
+    "npmRebuild": true,
+    "afterPack": "./afterPack.js",
     "mac": {
       "target": ["dmg"],
       "icon": "src/assets/logo icon.png"
