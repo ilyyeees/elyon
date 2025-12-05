@@ -1,0 +1,96 @@
+name: build
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: install python deps
+        run: |
+          cd python_backend
+          pip install -r requirements.txt pyinstaller
+          pyinstaller --onefile --name backend app.py
+
+      - name: install node deps
+        run: npm install
+
+      - name: build linux
+        run: npm run dist:linux
+
+      - name: upload linux artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-build
+          path: dist/*.AppImage
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: install python deps
+        run: |
+          cd python_backend
+          pip install -r requirements.txt pyinstaller
+          pyinstaller --onefile --name backend app.py
+
+      - name: install node deps
+        run: npm install
+
+      - name: build windows
+        run: npm run dist:win
+
+      - name: upload windows artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-build
+          path: dist/*.exe
+
+  release:
+    needs: [build-linux, build-windows]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: download linux build
+        uses: actions/download-artifact@v4
+        with:
+          name: linux-build
+          path: dist
+
+      - name: download windows build
+        uses: actions/download-artifact@v4
+        with:
+          name: windows-build
+          path: dist
+
+      - name: create release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: dist/*
