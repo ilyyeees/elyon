@@ -39,6 +39,9 @@ function startPython() {
     if (app.isPackaged) {
         // Production: use compiled binary from resources
         pythonExecutable = path.join(process.resourcesPath, 'backend', 'backend');
+        if (process.platform === 'win32') {
+            pythonExecutable += '.exe';
+        }
     } else {
         // Development: use venv python
         pythonExecutable = path.join(__dirname, 'python_backend', 'venv', 'bin', 'python');
